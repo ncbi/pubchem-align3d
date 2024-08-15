@@ -1,0 +1,11 @@
+# $Id: Makefile.in 673324 2023-09-28 13:21:53Z thiessen $
+
+# Meta-makefile
+#################################
+
+
+LIB_PROJ = align3d
+APP_PROJ = rdkit_align3d_test
+
+srcdir = @srcdir@
+include @builddir@/Makefile.meta

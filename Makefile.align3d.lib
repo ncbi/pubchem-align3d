@@ -1,0 +1,13 @@
+# $Id: Makefile.align3d.lib 673324 2023-09-28 13:21:53Z thiessen $
+# Author:  Evan Bolton, Paul Thiessen
+
+#################################
+
+
+LIB = align3d
+
+SRC =	shape_functions1 shape_functions2 shape_neighbor
+
+
+CPPFLAGS = $(ORIG_CPPFLAGS)
+
