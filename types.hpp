@@ -1,4 +1,4 @@
-/*  $Id: types.hpp 685605 2024-07-26 12:29:33Z thiessen $
+/*  $Id: types.hpp 686844 2024-08-28 13:40:05Z thiessen $
 * ===========================================================================
 *
 *                            PUBLIC DOMAIN NOTICE
@@ -31,14 +31,7 @@
 #ifndef ALIGN3D_TYPES__HPP
 #define ALIGN3D_TYPES__HPP
 
-#if (__SIZEOF_LONG__ == 8)
-    typedef signed long Int8;    
-    typedef unsigned long Uint8;
-#elif (__SIZEOF_LONG_LONG__ == 8)
-    typedef signed long long Int8;    
-    typedef unsigned long long Uint8;
-#else
-    #error "This platform does not support 8-byte integer"
-#endif
+typedef std::int64_t Int8;    
+typedef std::uint64_t Uint8;
 
 #endif // ALIGN3D_TYPES__HPP
