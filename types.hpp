@@ -31,6 +31,8 @@
 #ifndef ALIGN3D_TYPES__HPP
 #define ALIGN3D_TYPES__HPP
 
+#include <cstdint>
+
 typedef std::int64_t Int8;    
 typedef std::uint64_t Uint8;
 
