@@ -1,4 +1,4 @@
-/*  $Id: shape_neighbor.cpp 685605 2024-07-26 12:29:33Z thiessen $
+/*  $Id: shape_neighbor.cpp 701462 2025-08-28 13:55:19Z thiessen $
 * ===========================================================================
 *
 *                            PUBLIC DOMAIN NOTICE
@@ -685,7 +685,7 @@ void Neighbor_Conformers(
 	
 	    if ( old_overlap > st_tot ) {  // Previous successful step was better... retain better step
 	      st_tot = old_overlap;
-	      memcpy( qom, old_quattrans, 7 * sizeof( float ) );
+	      memcpy( qom, old_quattrans, 7 * sizeof( double ) );
 
 	      if( debug_print1 ) std::cerr << "\t\titer: " << iter << " keep previous value of st_tot. "; 
 	    }else{
