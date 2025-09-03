@@ -1,4 +1,4 @@
-/*  $Id: rdkit_align3d_test.cpp 685605 2024-07-26 12:29:33Z thiessen $
+/*  $Id: rdkit_align3d_test.cpp 701610 2025-09-03 15:30:06Z thiessen $
 * ===========================================================================
 *
 *                            PUBLIC DOMAIN NOTICE
@@ -31,10 +31,13 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <cstdlib>
 
 #include <GraphMol/RWMol.h>
 #include <GraphMol/FileParsers/MolSupplier.h>
 #include <GraphMol/FileParsers/MolWriters.h>
+#include <GraphMol/MolTransforms/MolTransforms.h>
+#include <Geometry/Transform3D.h>
 
 #include "shape_functions.hpp"
 
@@ -404,8 +407,8 @@ int main(int argc, char **argv)
     
     try {
     
-        if (argc != 6)
-            ERRORTHROW("Usage: rdkit_example <ref_conformer.sdf> <fit_conformer.sdf> opt_param max_preiters max_postiters");
+        if (argc != 7)
+            ERRORTHROW("Usage: rdkit_example <ref_conformer.sdf> <fit_conformer.sdf> opt_param max_preiters max_postiters rotation_seed");
         
         SDMolSupplier s_ref(argv[1], false, false, true);
         unique_ptr < ROMol > ro_ref(s_ref.next());
@@ -418,6 +421,19 @@ int main(int argc, char **argv)
         if (!ro_fit.get())
             ERRORTHROW("Failed to read fit conformer");
         RWMol fit(*ro_fit);
+        
+        // optionally apply some random rotations to the initial fit conformer
+        unsigned int seed = stoul(argv[6]);
+        if (seed > 0) {
+            srand(seed);
+            RDGeom::Transform3D t;
+            t.SetRotation((((double) (rand() % 360)) * 0.0174533), RDGeom::X_Axis);
+            MolTransforms::transformConformer(fit.getConformer(), t);
+            t.SetRotation((((double) (rand() % 360)) * 0.0174533), RDGeom::Y_Axis);
+            MolTransforms::transformConformer(fit.getConformer(), t);
+            t.SetRotation((((double) (rand() % 360)) * 0.0174533), RDGeom::Z_Axis);
+            MolTransforms::transformConformer(fit.getConformer(), t);
+        }
         
         vector < float > matrix(12, 0.0);
         double nbr_st = 0.0;
